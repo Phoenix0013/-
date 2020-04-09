@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.MessageMapper">
+	<select id="queryMessageById" parameterType="int"
+		resultType="Message">
+		SELECT message_id,
+		user_id,
+		schedule_id,
+		user_phone,
+		messgae_context,
+		message_date
+
+		FROM
+		realmardrd.message
+		WHERE
+		schedule_id=#{schedule_id} ORDER BY message_date DESC;
+	</select>
+	<insert id="publicMessage" parameterType="Message">
+		INSERT INTO
+		realmardrd.message
+		(
+		user_id,
+		schedule_id,
+		user_phone,
+		messgae_context,
+		message_date
+		)
+		VALUES
+		(
+		#{user_id},
+		#{schedule_id},
+		#{user_phone},
+		#{messgae_context},
+		#{message_date}
+		);
+	</insert>
+	<select id="totalMessage" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM message WHERE schedule_id=#{schedule_id};
+	</select>
+</mapper>

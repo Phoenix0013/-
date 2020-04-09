@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.PlayerMapper">
+	<select id="queryAllPlayer" resultType="Player">
+		select * from player
+	</select>
+	<delete id="deletePlayer" parameterType="int">
+		DELETE FROM
+		realmardrd.player
+		WHERE
+		player_id = #{player_id} ;
+
+	</delete>
+	<insert id="insertPlayer" parameterType="Player">
+		INSERT INTO
+		realmardrd.player
+		(
+		player_Ename,
+		player_Cname,
+		player_goal,
+		player_assists,
+		player_interceptions,
+		player_number,
+		player_effectiveTeam
+		)
+		VALUES
+		(
+		#{player_Ename},
+		#{player_Cname},
+		#{player_goal},
+		#{player_assists},
+		#{player_interceptions},
+		#{player_number},
+		#{player_effectiveTeam}
+		);
+	</insert>
+	<update id="updatePlayer" parameterType="Player">
+		UPDATE realmardrd.player
+		SET
+		player_Ename = #{player_Ename} ,
+		player_Cname = #{player_Cname} ,
+		player_goal = #{player_goal} ,
+		player_assists =#{player_assists} ,
+		player_interceptions = #{player_interceptions} ,
+		player_number =
+		#{player_number} ,
+		player_effectiveTeam = #{player_effectiveTeam}
+
+		WHERE
+		player_id = #{player_id} ;
+
+	</update>
+	<select id="dimQuery" resultType="Player">
+		SELECT player_id,
+		player_Ename,
+		player_Cname,
+		player_goal,
+		player_assists,
+		player_interceptions,
+		player_number,
+		player_effectiveTeam
+
+		FROM
+		realmardrd.player
+		WHERE
+		player_Ename LIKE '%${player_Ename}%' limit 0,5;
+	</select>
+
+	<delete id="deleteAll" parameterType="Integer">
+		delete from realmardrd.player where player_id in
+		<foreach collection="array" item="id" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+
+	</delete>
+	<select id="queryPlayerById" parameterType="Integer"
+		resultType="Player">
+		SELECT player_id,
+		player_Ename,
+		player_Cname,
+		player_goal,
+		player_assists,
+		player_interceptions,
+		player_number,
+		player_effectiveTeam
+
+		FROM
+		realmardrd.player
+		WHERE player_id=#{player_id};
+	</select>
+	<select id="chart" resultType="Map">
+		SELECT
+		*
+		FROM
+		realmardrd.player limit
+		0,5;
+	</select>
+	<select id="queryByTeam" resultType="Map">
+		SELECT DISTINCT
+		player_effectiveTeam
+		FROM
+		realmardrd.player ;
+
+	</select>
+	<select id="queryPlayerByTeam" parameterType="String" resultType="Player">
+	SELECT 	player_id, 
+	player_Ename, 
+	player_Cname, 
+	player_goal, 
+	player_assists, 
+	player_interceptions, 
+	player_number, 
+	player_effectiveTeam
+	FROM 
+	realmardrd.player WHERE player_effectiveTeam=#{player_effectiveTeam}
+	</select>
+</mapper>

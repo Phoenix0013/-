@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.UserMapper">
+	<select id="findUserByPhone" resultType="User">
+		SELECT * FROM USER WHERE
+		user_phone = #{user_phone};
+
+	</select>
+	<select id="findUserByPassword" resultType="User">
+		SELECT
+		user_password
+		FROM USER
+		WHERE user_password = #{user_password};
+	</select>
+	<insert id="userRegist" parameterType="User">
+		INSERT INTO
+		realmardrd.user
+		(used_id,
+		user_phone,
+		user_password,
+		user_state,
+		user_points
+		)
+		VALUES
+		(
+		#{user_id},
+		#{user_phone},
+		#{user_password},
+		#{user_state},
+		#{user_points}
+		);
+	</insert>
+	<update id="updatePoints">
+
+		UPDATE realmardrd.user
+		SET
+		user_points = #{user_points}
+
+		WHERE
+		user_phone = #{user_phone};
+
+	</update>
+	<insert id="updateMember" parameterType="Member">
+		INSERT INTO
+		realmardrd.member
+		(user_phone,
+		user_password,
+		real_name,
+		id_number,
+		email,
+		img
+		)
+		VALUES
+		(#{user_phone},
+		#{user_password},
+		#{real_name},
+		#{id_number},
+		#{email},
+		#{img}
+		);
+	</insert>
+	<select id="userPhoto" resultType="Member">
+		SELECT
+		img
+
+		FROM
+		realmardrd.member WHERE user_phone=#{user_phone};
+	</select>
+</mapper>

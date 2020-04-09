@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ScheduleMapper">
+	<select id="queryLaliga" resultType="Schedule">
+		SELECT schedule_id,
+		home_team,
+		awayhome_team,
+		match_time,
+		league_membership
+
+		FROM
+		realmardrd.schedule
+		WHERE league_membership='西甲'
+
+	</select>
+	<select id="queryShceduleById" parameterType="Integer"
+		resultType="Schedule">
+		SELECT schedule_id,
+		home_team,
+		awayhome_team,
+		match_time,
+		league_membership
+
+		FROM
+		realmardrd.schedule
+		where schedule_id=#{schedule_id};
+
+	</select>
+</mapper>

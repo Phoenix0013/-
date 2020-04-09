@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.PorderMapper">
+<insert id="createOrder" parameterType="Porder">
+INSERT INTO realmardrd.porder 
+	(user_phone, 
+	order_money, 
+	win_team, 
+	order_time, 
+	order_state
+	)
+	VALUES
+	(
+	#{user_phone}, 
+	#{order_money}, 
+	#{win_team}, 
+	#{order_time}, 
+	#{order_state}
+	);
+</insert>
+<select id="selectByUserPhone" parameterType="String" resultType="Porder">
+SELECT 	order_id, 
+	user_phone, 
+	order_money, 
+	win_team, 
+	order_time, 
+	order_state
+	 
+	FROM 
+	realmardrd.porder 
+	where user_phone=#{user_phone};
+
+</select>
+<delete id="deleteOrder" parameterType="Integer">
+DELETE FROM realmardrd.porder 
+	WHERE
+	order_id = #{order_id} ;
+
+</delete>
+<update id="updateState" parameterType="String">
+UPDATE realmardrd.porder 
+	SET
+	order_state = '已支付'
+	
+	WHERE
+	user_phone = #{user_phone} ;
+
+</update>
+</mapper>
